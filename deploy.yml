@@ -1,0 +1,23 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # Используем наш раннер
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to server
+      run: |
+        echo "Деплой новой версии"
+        # Ваши команды деплоя:
+        # sudo systemctl restart your-service
+        # cp -r . /var/www/your-site/
+        # npm install && npm run build
