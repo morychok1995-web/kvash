@@ -56,9 +56,69 @@
     echo formatPhone($phone) . "<br/>";
 
     echo "<br/> Задание №4 <br/>";
+    $int_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    $even_arr = array_filter($int_arr, function($num) {
+        return $num % 2 == 0;
+    });
+    echo "Четные числа:<br>";
+    print_r($even_arr);
+    echo "<br>";
+
 
     echo "<br/> Задание №5 <br/>";
+    $n = 11;
+    function memoizedFactorial(int $n): int {
+    if ($n < 0) {
+        echo "Факториал определен только для неотрицательных чисел";
+    } else {
+                static $cache = [];
+                if (isset($cache[$n])) {
+                    return $cache[$n];
+                }
+                if ($n == 0 || $n == 1) {
+                    $result = 1;
+                } else {
+                    $result = $n * memoizedFactorial($n - 1);
+                }
+                $cache[$n] = $result;
+            }    
+            return $result;
+    }
+    echo "Факториал $n! = " . memoizedFactorial($n) . "<br>";
 
     echo "<br/> Задание №6 <br/>";
+    function createUser(string $name, string $email, int $age, bool $isActive = true): array {
+        return [
+            'name' => $name,
+            'email' => $email,
+            'age' => $age,
+            'isActive' => $isActive,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+    }
+    $user = createUser(
+    isActive: true,// Передается первым, хотя в сигнатуре последний
+    name: "Алексей Сидоров", 
+    email: "alex@example.com", 
+    age: 28
+    );
+    print_r($user);
+    echo "<br>";
     
+    echo "<br> Задание №7 <br>";
+    function makeCounter(): callable
+    {
+        $count = 0;        
+        return function() use (&$count): int {
+            return ++$count;
+        };
+    }
+    // Тестирование
+    $counter1 = makeCounter();
+    echo $counter1() . "<br>";
+    echo $counter1() . "<br>";
+
+    $counter2 = makeCounter();
+    echo $counter2() . "<br>";
+    echo $counter1() . "<br>";
 ?>
