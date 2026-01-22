@@ -315,4 +315,35 @@ function buildSearchUrl(string $query): string {
 echo buildSearchUrl($query) . "<br>";
 
 echo "<br> Задание №9 <br>";
+$pass = "!FastPassword1";
+function validatePassword(string $pass): bool {
+    $pattern = '/^(?=.*[A-Z])(?=.*\d).{8,}$/';
+    return preg_match($pattern, $pass) === 1;
+}
+$Valid = validatePassword($pass);
+if ($Valid) {
+    $validPass = "true";
+} else {
+    $validPass = "false";
+}
+echo $validPass . "<br>";
+
+echo "<br> Задание №10 <br>";
+$text = "Привет! Мой email: test.user123@example.com. Для связи: support@domain.co.uk. Пишите также на backup-mail@server.org. Удачи!";
+function extractEmails(string $text): array {
+    $pattern = '/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i';
+    preg_match_all($pattern, $text, $matches);
+    return $matches[0];
+}
+print_r(extractEmails($text));
+
+echo "<br> Задание №11 <br>";
+$text = "Сумма: 25.5 рублей. Куплено 7 кг. Цена 10.99 за штуку. Итог: 3 товара.";
+function highlightNumbers(string $text): string {
+    $pattern = '/\b\d+(?:\.\d+)?\b/u';
+    $replacement = '<span class="number"><b>$0</b></span>';
+    return preg_replace($pattern, $replacement, $text);
+}
+$result = highlightNumbers($text);
+echo $result;
 ?>
