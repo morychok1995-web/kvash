@@ -88,6 +88,71 @@ class BankAccount {
 }
 
 echo "<br>Задание №6<br>";
+class ShopProduct {
+    public function __construct(
+        private string $title,
+        private string $producer,
+        private float $price
+    ) {}
+    
+    public function getSummaryLine(): string {
+        return "{$this->title} ({$this->producer}) — {$this->price} ₽";
+    }
+}
+    $book1 = new ShopProduct("1984","Дж.Оруэл", 599.99);
+    $book2 = new ShopProduct("Будущее","Д.Глуховский", 312.66);
 
+    echo $book1->getSummaryLine() . "<br>";
+    echo $book2->getSummaryLine();
 
+echo "<br>Задание №7<br>";
+class Counter {
+    private static int $count = 0;
+    public function __construct() {
+        self::$count++;
+        echo "Создан объект. Всего объектов: " . self::$count . "<br>";
+    }
+    public static function getCount(): int {
+        return self::$count;
+    }
+    public function showCurrentCount(): void {
+        echo "Текущий счетчик из метода объекта: " . self::$count . "<br>";
+    }
+}
+    $counter1 = new Counter();
+    $counter2 = new Counter();
+    $counter3 = new Counter();
+        echo "Всего создано объектов (через статический метод): " . Counter::getCount() . "<br>";
+    $counter1->showCurrentCount();
+    $counter2->showCurrentCount();
+        echo "Проверка через counter1::getCount(): " . Counter::getCount() . "<br>";
+        echo "Проверка через counter2::getCount(): " . Counter::getCount() . "<br>";
+    $counter4 = new Counter();  
+        echo "Финальное значение счетчика: " . Counter::getCount() . "<br>";
+
+echo "<br>Задание №8<br>";
+class User {
+    public function __construct(
+        private string $email,
+        private string $name,
+        private ?\DateTimeImmutable $createdAt = null
+    ) {
+        if ($this->createdAt === null) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
+    }
+    public function getEmail(): string {
+        return $this->email;
+    }
+    public function getName(): string {
+        return $this->name;
+    }
+    public function getCreatedAt(): \DateTimeImmutable {
+        return $this->createdAt;
+    }
+    public function getInfo(): string {
+        $formattedDate = $this->createdAt->format('Y-m-d');
+        return "{$this->name} ({$this->email}), зарегистрирован: {$formattedDate}";
+    }
+}
 ?>
